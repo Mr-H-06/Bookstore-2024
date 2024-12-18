@@ -6,9 +6,13 @@ const int BLOCK_SIZE = 1000;
 const std::string BLOCK_FILE_PREFIX = "block.txt";
 const std::string INDEX_FILE = "index.txt";
 
-struct Block {
+struct Data {
   char index[64];
   int value;
+};
+
+struct Block {
+  Data data[BLOCK_SIZE];
 };
 
 struct Index {
@@ -24,7 +28,7 @@ std::string instruction;
 char readindex[64];
 Index idx[BLOCK_SIZE + 1];
 int head, len, startplace;
-Block takeblock[BLOCK_SIZE + 1];
+Block takeblock;
 MemoryRiver<Index> lst(INDEX_FILE);
 MemoryRiver<Block> block(BLOCK_FILE_PREFIX);
 
@@ -37,11 +41,7 @@ int findblock(char *index, int value) {
   return i;
 }
 void getblock(int blockidx) {
-  int ins = info_len * sizeof(int) + blockidx * sizeof(Block) * BLOCK_SIZE;
-  for (int i = 0; i < idx[blockidx].datanumber; ++i) {
-    block.read(takeblock[i], ins);
-    ins += sizeof(Block);
-  }
+  block.read(takeblock, info_len * sizeof(int) + blockidx * sizeof(Block));
 }
 
 int main() {
@@ -82,13 +82,13 @@ int main() {
       blockidx = findblock(readindex, value);
       getblock(blockidx);
       int j = idx[blockidx].datanumber - 1;
-      while (!(strcmp(takeblock[j].index, readindex) < 0 || strcmp(takeblock[j].index, readindex) == 0 && takeblock[j].value < value) && j >= 0) {
-        takeblock[j + 1] = takeblock[j];
+      while (!(strcmp(takeblock.data[j].index, readindex) < 0 || strcmp(takeblock.data[j].index, readindex) == 0 && takeblock.data[j].value < value) && j >= 0) {
+        takeblock.data[j + 1] = takeblock.data[j];
         --j;
       }
       ++j;
-      strcpy(takeblock[j].index, readindex);
-      takeblock[j].value = value;
+      strcpy(takeblock.data[j].index, readindex);
+      takeblock.data[j].value = value;
       ++idx[blockidx].datanumber;
       if (idx[blockidx].datanumber == BLOCK_SIZE) {  //裂块
         int num = idx[blockidx].datanumber / 2;
@@ -97,25 +97,20 @@ int main() {
         idx[len].nextplace = idx[blockidx].nextplace;
         strcpy(idx[len].name, idx[blockidx].name);
         idx[len].number = idx[blockidx].number;
-        for (int p = 0; p < num; ++p) {
-          block.write(takeblock[p], p + blockidx * BLOCK_SIZE);
-        }
+        Block otherblock;
         for (int p = num; p < BLOCK_SIZE; ++p) {
-          block.write(takeblock[p], p + len * BLOCK_SIZE);
+          otherblock.data[p - num] = takeblock.data[p];
         }
 
         idx[blockidx].datanumber = num;
         idx[blockidx].link = len;
         idx[blockidx].nextplace = sizeof(int) * info_len + blockidx * sizeof(Block);
-        strcpy(idx[blockidx].name, takeblock[num - 1].index);
-        idx[blockidx].number = takeblock[num - 1].value;
+        strcpy(idx[blockidx].name, takeblock.data[num - 1].index);
+        idx[blockidx].number = takeblock.data[num - 1].value;
         ++len;
 
-      } else {   //更新
-        for (int p = j; p < idx[blockidx].datanumber; ++p) {
-          block.write(takeblock[p], p + blockidx * BLOCK_SIZE);
-        }
-      }
+      }  //更新
+      block.write(takeblock, blockidx);
       //std::cout << instruction << readindex << value;
     } else if (instruction == "delete") {
       int value, blockidx;
@@ -126,18 +121,18 @@ int main() {
       int l = 0, r = idx[blockidx].datanumber - 1, m;
       while (l < r) {
         m = (l + r) / 2;
-        if (strcmp(takeblock[m].index, readindex) < 0 || strcmp(takeblock[m].index, readindex) == 0 && takeblock[m].value < value) {
+        if (strcmp(takeblock.data[m].index, readindex) < 0 || strcmp(takeblock.data[m].index, readindex) == 0 && takeblock.data[m].value < value) {
           l = m + 1;
         } else {
           r = m;
         }
       }
-      if (strcmp(takeblock[l].index, readindex) == 0 && takeblock[l].value == value) {
+      if (strcmp(takeblock.data[l].index, readindex) == 0 && takeblock.data[l].value == value) {
         --idx[blockidx].datanumber;
         for (int p = l; p < idx[blockidx].datanumber; ++p) {
-          takeblock[p] = takeblock[p + 1];
-          block.write(takeblock[p], p + blockidx * BLOCK_SIZE);
+          takeblock.data[p] = takeblock.data[p + 1];
         }
+        block.write(takeblock, blockidx);
         /*
         if (idx[blockidx].datanumber == 0) {
 
@@ -152,16 +147,16 @@ int main() {
       getblock(blockidx);
       bool print = false;
       for (int p = 0; p < idx[blockidx].datanumber; ++p) {
-        if (strcmp(takeblock[p].index,readindex) == 0) {
-          std::cout << takeblock[p].value << ' ';
+        if (strcmp(takeblock.data[p].index,readindex) == 0) {
+          std::cout << takeblock.data[p].value << ' ';
           print = true;
         }
       }
       if (idx[blockidx].nextplace > sizeof(int) * info_len) {
         blockidx = idx[blockidx].link;
         for (int p = 0; p < idx[blockidx].datanumber; ++p) {
-          if (strcmp(takeblock[p].index,readindex) == 0) {
-            std::cout << takeblock[p].value << ' ';
+          if (strcmp(takeblock.data[p].index,readindex) == 0) {
+            std::cout << takeblock.data[p].value << ' ';
             print = true;
           }
         }
