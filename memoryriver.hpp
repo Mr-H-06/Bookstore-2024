@@ -30,7 +30,6 @@ public:
       int tmp = 0;
       for (int i = 0; i < info_len; ++i)
         file.write(reinterpret_cast<char *>(&tmp), sizeof(int));
-      std::cout << "2";
     }
   }
   void initialise(string FN = "") {
@@ -47,9 +46,7 @@ public:
     //file.open(file_name, std::ios::in);
     file.seekg(sizeof(int) * (n - 1));
     file.read(reinterpret_cast<char *> (&tmp), sizeof(int));
-    if(!file) {
-      std::cout << "err_get info";
-    }
+    //if(!file) {std::cout << "err_get info";}
     //file.close();
   }
   //将tmp写入第n个int的位置，1_base
@@ -59,9 +56,7 @@ public:
     //file.open(file_name, std::ios::in | std::ios::out);
     file.seekp(sizeof(int) * (n - 1));
     file.write(reinterpret_cast<char *> (&tmp), sizeof(int));
-    if (!file) {
-      std::cout << "   err write_info";
-    }
+    //if (!file) {std::cout << "   err write_info";}
     //file.close();
   }
   //在文件合适位置写入类对象t，并返回写入的位置索引index
@@ -70,12 +65,10 @@ public:
   void write(T &t, int ins) {
     /* your code here */
     //file.open(file_name, std::ios::out | std::ios::app);
-    if (!file) {
-      std::cout << "   err write\n";
-    }
     file.seekp(sizeof(int) * info_len + ins * sizeofT);
     //int index = file.tellp();
     file.write(reinterpret_cast<char *>(&t), sizeofT);
+    //if (!file) {std::cout << "   err write\n";}
     //file.close();
     //return index;
   }
@@ -93,9 +86,7 @@ public:
     //file.open(file_name, std::ios::in);
     file.seekg(index);
     file.read(reinterpret_cast<char *>(&t), sizeofT);
-    if(!file) {
-      std::cout << "   err read\n";
-    }
+    //if(!file) {std::cout << "   err read\n";}
     //file.close();
   }
 
