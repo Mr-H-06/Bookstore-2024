@@ -45,8 +45,7 @@ void getblock(int blockidx) {
 }
 
 int main() {
-  //lst.clear(); //return 0;
-  //block.clear(); //return 0;
+  //lst.clear(); block.clear(); //return 0;
   block.open();
   lst.open();
   /*block.write_info(100, 1);
@@ -54,17 +53,23 @@ int main() {
   std::cout << head;
   block.clear();
   block.open();
-  /*lst.close();
+  lst.close();
   block.close();
   return 0;*/
   head = 0;
+  //lst.write_info(100,1);
   lst.get_info(len, 1); //len 是 块数
   int ins = sizeof(int) * info_len, i = head;
-  while (i != -1) {
-    lst.read(idx[i], ins);
-    ins = idx[i].nextplace;
-    if (ins < sizeof(int) * info_len) break;
-    i = idx[i].link;
+  if (len != 0) {
+    while (i != -1) {
+      lst.read(idx[i], ins);
+      ins = idx[i].nextplace;
+      if (ins < sizeof(int) * info_len) break;
+      i = idx[i].link;
+    }
+  } else {
+    len = 1;
+    lst.write_info(1, 1);
   }
 
   int n;
@@ -105,14 +110,16 @@ int main() {
         idx[blockidx].nextplace = sizeof(int) * info_len + blockidx * sizeof(Block);
         strcpy(idx[blockidx].name, takeblock[num - 1].index);
         idx[blockidx].number = takeblock[num - 1].value;
+        lst.write(newblock, len);
         ++len;
         lst.write_info(len, 1);
 
       } else {   //更新
-        for (int p = 0; p < idx[blockidx].datanumber; ++p) {
+        for (int p = j; p < idx[blockidx].datanumber; ++p) {
           block.write(takeblock[p], p + blockidx * BLOCK_SIZE);
         }
       }
+      lst.write(idx[blockidx], blockidx);
       //std::cout << instruction << readindex << value;
     } else if (instruction == "delete") {
       int value, blockidx;
@@ -143,6 +150,7 @@ int main() {
           idx[blockidx].number = takeblock[m - 1].value;
         }*/
       }
+      lst.write(idx[blockidx], blockidx);
     } else if (instruction == "find") {
       int value = -1, blockidx;
       blockidx = findblock(readindex, value);
