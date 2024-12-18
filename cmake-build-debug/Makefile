@@ -117,24 +117,24 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named Bookstore_2024
+# Target rules for targets named code
 
 # Build rule for target.
-Bookstore_2024: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 Bookstore_2024
-.PHONY : Bookstore_2024
+code: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 code
+.PHONY : code
 
 # fast build rule for target.
-Bookstore_2024/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Bookstore_2024.dir/build.make CMakeFiles/Bookstore_2024.dir/build
-.PHONY : Bookstore_2024/fast
+code/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/code.dir/build.make CMakeFiles/code.dir/build
+.PHONY : code/fast
 
 code.o: code.cpp.o
 .PHONY : code.o
 
 # target to build an object file
 code.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Bookstore_2024.dir/build.make CMakeFiles/Bookstore_2024.dir/code.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/code.dir/build.make CMakeFiles/code.dir/code.cpp.o
 .PHONY : code.cpp.o
 
 code.i: code.cpp.i
@@ -142,7 +142,7 @@ code.i: code.cpp.i
 
 # target to preprocess a source file
 code.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Bookstore_2024.dir/build.make CMakeFiles/Bookstore_2024.dir/code.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/code.dir/build.make CMakeFiles/code.dir/code.cpp.i
 .PHONY : code.cpp.i
 
 code.s: code.cpp.s
@@ -150,7 +150,7 @@ code.s: code.cpp.s
 
 # target to generate assembly for a file
 code.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Bookstore_2024.dir/build.make CMakeFiles/Bookstore_2024.dir/code.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/code.dir/build.make CMakeFiles/code.dir/code.cpp.s
 .PHONY : code.cpp.s
 
 # Help Target
@@ -161,7 +161,7 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... Bookstore_2024"
+	@echo "... code"
 	@echo "... code.o"
 	@echo "... code.i"
 	@echo "... code.s"

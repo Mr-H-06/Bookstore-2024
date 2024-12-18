@@ -2,7 +2,7 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "Bookstore_2024"
+			"path" : "code"
 		}
 	],
 	"backtrace" : 1,
@@ -67,7 +67,7 @@
 			]
 		}
 	],
-	"id" : "Bookstore_2024::@6890427a1f51a3e7e1df",
+	"id" : "code::@6890427a1f51a3e7e1df",
 	"link" : 
 	{
 		"commandFragments" : 
@@ -83,8 +83,8 @@
 		],
 		"language" : "CXX"
 	},
-	"name" : "Bookstore_2024",
-	"nameOnDisk" : "Bookstore_2024",
+	"name" : "code",
+	"nameOnDisk" : "code",
 	"paths" : 
 	{
 		"build" : ".",

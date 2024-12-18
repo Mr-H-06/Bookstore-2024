@@ -23,6 +23,7 @@ public:
   void open() {
     file.open(file_name, std::ios::in | std::ios::out);
     if(!file.is_open()){
+      //std::cout << "open error\n";
       file.open(file_name, std::ios::out);
       file.close();
       file.open(file_name, std::ios::in | std::ios::out);
@@ -90,7 +91,7 @@ public:
     close();
     file.open(file_name,std::ios::out | std::ios::trunc);
     close();
-    file.open(file_name,std::ios::in | std::ios::out);
+    //file.open(file_name,std::ios::in | std::ios::out);
   }
 };
 

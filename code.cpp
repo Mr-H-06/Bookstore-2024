@@ -46,8 +46,17 @@ void getblock(int blockidx) {
 
 int main() {
   //lst.clear(); //return 0;
+  //block.clear(); //return 0;
   block.open();
   lst.open();
+  /*block.write_info(100, 1);
+  block.get_info(head, 1);
+  std::cout << head;
+  block.clear();
+  block.open();
+  /*lst.close();
+  block.close();
+  return 0;*/
   head = 0;
   lst.get_info(len, 1); //len 是 块数
   int ins = sizeof(int) * info_len, i = head;
@@ -109,6 +118,7 @@ int main() {
       int value, blockidx;
       std::cin >> value;
       blockidx = findblock(readindex, value);
+      if (idx[blockidx].datanumber == 0) continue;
       getblock(blockidx);
       int l = 0, r = idx[blockidx].datanumber - 1, m;
       while (l < r) {
@@ -119,9 +129,9 @@ int main() {
           r = m;
         }
       }
-      if (strcmp(takeblock[m].index, readindex) == 0 && takeblock[m].value == value) {
+      if (strcmp(takeblock[l].index, readindex) == 0 && takeblock[l].value == value) {
         --idx[blockidx].datanumber;
-        for (int p = m; p < idx[blockidx].datanumber; ++p) {
+        for (int p = l; p < idx[blockidx].datanumber; ++p) {
           takeblock[p] = takeblock[p + 1];
           block.write(takeblock[p], p + blockidx * BLOCK_SIZE);
         }
