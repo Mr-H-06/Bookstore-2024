@@ -5,6 +5,6 @@ set(CMAKE_CXX_STANDARD 14)
 
 include_directories(.)
 
-add_executable(Bookstore_2024
+add_executable(code
     code.cpp
     memoryriver.hpp)

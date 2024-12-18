@@ -69,28 +69,28 @@ include CMakeFiles/Bookstore_2024.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/Bookstore_2024.dir/flags.make
 
-CMakeFiles/Bookstore_2024.dir/main.cpp.o: CMakeFiles/Bookstore_2024.dir/flags.make
-CMakeFiles/Bookstore_2024.dir/main.cpp.o: /mnt/c/Users/hejia/Desktop/Bookstore-2024/main.cpp
-CMakeFiles/Bookstore_2024.dir/main.cpp.o: CMakeFiles/Bookstore_2024.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/mnt/c/Users/hejia/Desktop/Bookstore-2024/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/Bookstore_2024.dir/main.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Bookstore_2024.dir/main.cpp.o -MF CMakeFiles/Bookstore_2024.dir/main.cpp.o.d -o CMakeFiles/Bookstore_2024.dir/main.cpp.o -c /mnt/c/Users/hejia/Desktop/Bookstore-2024/main.cpp
+CMakeFiles/Bookstore_2024.dir/code.cpp.o: CMakeFiles/Bookstore_2024.dir/flags.make
+CMakeFiles/Bookstore_2024.dir/code.cpp.o: /mnt/c/Users/hejia/Desktop/Bookstore-2024/code.cpp
+CMakeFiles/Bookstore_2024.dir/code.cpp.o: CMakeFiles/Bookstore_2024.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/mnt/c/Users/hejia/Desktop/Bookstore-2024/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/Bookstore_2024.dir/code.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Bookstore_2024.dir/code.cpp.o -MF CMakeFiles/Bookstore_2024.dir/code.cpp.o.d -o CMakeFiles/Bookstore_2024.dir/code.cpp.o -c /mnt/c/Users/hejia/Desktop/Bookstore-2024/code.cpp
 
-CMakeFiles/Bookstore_2024.dir/main.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/Bookstore_2024.dir/main.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/c/Users/hejia/Desktop/Bookstore-2024/main.cpp > CMakeFiles/Bookstore_2024.dir/main.cpp.i
+CMakeFiles/Bookstore_2024.dir/code.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/Bookstore_2024.dir/code.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/c/Users/hejia/Desktop/Bookstore-2024/code.cpp > CMakeFiles/Bookstore_2024.dir/code.cpp.i
 
-CMakeFiles/Bookstore_2024.dir/main.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Bookstore_2024.dir/main.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/Users/hejia/Desktop/Bookstore-2024/main.cpp -o CMakeFiles/Bookstore_2024.dir/main.cpp.s
+CMakeFiles/Bookstore_2024.dir/code.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Bookstore_2024.dir/code.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/Users/hejia/Desktop/Bookstore-2024/code.cpp -o CMakeFiles/Bookstore_2024.dir/code.cpp.s
 
 # Object files for target Bookstore_2024
 Bookstore_2024_OBJECTS = \
-"CMakeFiles/Bookstore_2024.dir/main.cpp.o"
+"CMakeFiles/Bookstore_2024.dir/code.cpp.o"
 
 # External object files for target Bookstore_2024
 Bookstore_2024_EXTERNAL_OBJECTS =
 
-Bookstore_2024: CMakeFiles/Bookstore_2024.dir/main.cpp.o
+Bookstore_2024: CMakeFiles/Bookstore_2024.dir/code.cpp.o
 Bookstore_2024: CMakeFiles/Bookstore_2024.dir/build.make
 Bookstore_2024: CMakeFiles/Bookstore_2024.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/mnt/c/Users/hejia/Desktop/Bookstore-2024/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable Bookstore_2024"

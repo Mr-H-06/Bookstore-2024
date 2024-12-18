@@ -1,8 +1,8 @@
 file(REMOVE_RECURSE
   "Bookstore_2024"
   "Bookstore_2024.pdb"
-  "CMakeFiles/Bookstore_2024.dir/main.cpp.o"
-  "CMakeFiles/Bookstore_2024.dir/main.cpp.o.d"
+  "CMakeFiles/Bookstore_2024.dir/code.cpp.o"
+  "CMakeFiles/Bookstore_2024.dir/code.cpp.o.d"
 )
 
 # Per-language clean rules from dependency scanning.

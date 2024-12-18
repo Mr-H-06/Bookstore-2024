@@ -129,29 +129,29 @@ Bookstore_2024/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Bookstore_2024.dir/build.make CMakeFiles/Bookstore_2024.dir/build
 .PHONY : Bookstore_2024/fast
 
-main.o: main.cpp.o
-.PHONY : main.o
+code.o: code.cpp.o
+.PHONY : code.o
 
 # target to build an object file
-main.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Bookstore_2024.dir/build.make CMakeFiles/Bookstore_2024.dir/main.cpp.o
-.PHONY : main.cpp.o
+code.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Bookstore_2024.dir/build.make CMakeFiles/Bookstore_2024.dir/code.cpp.o
+.PHONY : code.cpp.o
 
-main.i: main.cpp.i
-.PHONY : main.i
+code.i: code.cpp.i
+.PHONY : code.i
 
 # target to preprocess a source file
-main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Bookstore_2024.dir/build.make CMakeFiles/Bookstore_2024.dir/main.cpp.i
-.PHONY : main.cpp.i
+code.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Bookstore_2024.dir/build.make CMakeFiles/Bookstore_2024.dir/code.cpp.i
+.PHONY : code.cpp.i
 
-main.s: main.cpp.s
-.PHONY : main.s
+code.s: code.cpp.s
+.PHONY : code.s
 
 # target to generate assembly for a file
-main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Bookstore_2024.dir/build.make CMakeFiles/Bookstore_2024.dir/main.cpp.s
-.PHONY : main.cpp.s
+code.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Bookstore_2024.dir/build.make CMakeFiles/Bookstore_2024.dir/code.cpp.s
+.PHONY : code.cpp.s
 
 # Help Target
 help:
@@ -162,9 +162,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... Bookstore_2024"
-	@echo "... main.o"
-	@echo "... main.i"
-	@echo "... main.s"
+	@echo "... code.o"
+	@echo "... code.i"
+	@echo "... code.s"
 .PHONY : help
 
 
