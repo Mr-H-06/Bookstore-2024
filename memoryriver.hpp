@@ -65,8 +65,10 @@ public:
   void write(T &t, int ins) {
     /* your code here */
     //file.open(file_name, std::ios::out | std::ios::app);
+    //if (!file) {std::cout << "   err write\n";}
     file.seekp(sizeof(int) * info_len + ins * sizeofT);
     //int index = file.tellp();
+    //if (!file) {std::cout << "   err write\n";}
     file.write(reinterpret_cast<char *>(&t), sizeofT);
     //if (!file) {std::cout << "   err write\n";}
     //file.close();
@@ -84,7 +86,9 @@ public:
   void read(T &t, const int index) {
     /* your code here */
     //file.open(file_name, std::ios::in);
+    //if(!file) {std::cout << "   err read\n" ;}
     file.seekg(index);
+    //if(!file) {std::cout << "   err read\n";}
     file.read(reinterpret_cast<char *>(&t), sizeofT);
     //if(!file) {std::cout << "   err read\n";}
     //file.close();

@@ -61,15 +61,17 @@ int main() {
   lst.get_info(len, 1); //len 是 块数
   int ins = sizeof(int) * info_len, i = head;
   if (len != 0) {
-    while (i != -1) {
-      lst.read(idx[i], ins);
-      ins = idx[i].nextplace;
-      if (ins < sizeof(int) * info_len) break;
-      i = idx[i].link;
+    for (int i = 0; i < len; ++i) {
+      lst.read(idx[i], sizeof(int) * info_len + i * sizeof(Index));
     }
   } else {
     len = 1;
     lst.write_info(1, 1);
+    for (int i = 0; i < BLOCK_SIZE; ++i) {
+      strcpy(takeblock.data[i].index, "");
+      takeblock.data[i].value = 0;
+    }
+    block.write(takeblock, 0);
   }
 
   int n;
