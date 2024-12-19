@@ -45,7 +45,7 @@ void getblock(int blockidx) {
 }
 
 int main() {
-  lst.clear(); block.clear(); //return 0;
+  //lst.clear(); block.clear(); //return 0;
   block.open();
   lst.open();
   /*block.write_info(100, 1);
