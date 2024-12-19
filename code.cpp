@@ -160,7 +160,7 @@ int main() {
       } else {
         blockidx = idx[blockidx].link;
         getblock(blockidx);
-        while (strcmp(takeblock.data[0].index, readindex) == 0) {
+        while (blockidx != 0 && strcmp(takeblock.data[0].index, readindex) == 0) {
           for (int p = 0; p < idx[blockidx].datanumber; ++p) {
             if(strcmp(takeblock.data[p].index,readindex) == 0) {
               std::cout << takeblock.data[p].value << ' ';
