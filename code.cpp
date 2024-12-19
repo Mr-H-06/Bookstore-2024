@@ -2,7 +2,7 @@
 #include <iostream>
 #include <memoryriver.hpp>
 
-const int BLOCK_SIZE = 1000;
+const int BLOCK_SIZE = 3;
 const std::string BLOCK_FILE_PREFIX = "block.txt";
 const std::string INDEX_FILE = "index.txt";
 
@@ -45,7 +45,7 @@ void getblock(int blockidx) {
 }
 
 int main() {
-  //lst.clear(); block.clear(); //return 0;
+  lst.clear(); block.clear(); //return 0;
   block.open();
   lst.open();
   /*block.write_info(100, 1);
@@ -103,6 +103,7 @@ int main() {
         for (int p = num; p < BLOCK_SIZE; ++p) {
           otherblock.data[p - num] = takeblock.data[p];
         }
+        block.write(otherblock, len);
 
         idx[blockidx].datanumber = num;
         idx[blockidx].link = len;
@@ -147,24 +148,31 @@ int main() {
       int value = -1, blockidx;
       blockidx = findblock(readindex, value);
       getblock(blockidx);
-      bool print = false;
+      bool print = false;/////////this
       for (int p = 0; p < idx[blockidx].datanumber; ++p) {
         if (strcmp(takeblock.data[p].index,readindex) == 0) {
           std::cout << takeblock.data[p].value << ' ';
           print = true;
         }
       }
-      if (idx[blockidx].nextplace > sizeof(int) * info_len) {
-        blockidx = idx[blockidx].link;
-        for (int p = 0; p < idx[blockidx].datanumber; ++p) {
-          if (strcmp(takeblock.data[p].index,readindex) == 0) {
-            std::cout << takeblock.data[p].value << ' ';
-            print = true;
-          }
-        }
-      }
       if (!print) {
         std::cout << "null";
+      } else {
+        blockidx = idx[blockidx].link;
+        getblock(blockidx);
+        while (strcmp(takeblock.data[0].index, readindex) == 0) {
+          for (int p = 0; p < idx[blockidx].datanumber; ++p) {
+            if(strcmp(takeblock.data[p].index,readindex) == 0) {
+              std::cout << takeblock.data[p].value << ' ';
+            }
+          }
+          blockidx = idx[blockidx].link;
+          if (blockidx == 0) {
+            break;
+          } else {
+            getblock(blockidx);
+          }
+        }
       }
       std::cout << std::endl;
     }
