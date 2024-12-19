@@ -2,7 +2,7 @@
 #include <iostream>
 #include <memoryriver.hpp>
 
-const int BLOCK_SIZE = 1000;
+const int BLOCK_SIZE = 2000;
 const std::string BLOCK_FILE_PREFIX = "block.txt";
 const std::string INDEX_FILE = "index.txt";
 
@@ -19,7 +19,6 @@ struct Index {
   char name[64];
   int number;
 
-  int nextplace;
   int link;
   int datanumber;
 };
@@ -59,7 +58,6 @@ int main() {
   head = 0;
   //lst.write_info(100,1);
   lst.get_info(len, 1); //len 是 块数
-  int ins = sizeof(int) * info_len, i = head;
   if (len != 0) {
     for (int i = 0; i < len; ++i) {
       lst.read(idx[i], sizeof(int) * info_len + i * sizeof(Index));
@@ -76,7 +74,7 @@ int main() {
 
   int n;
   std::cin >> n;
-  for (i = 0; i < n; ++i) {
+  for (int i = 0; i < n; ++i) {
     std::cin >> instruction >> readindex;
     if (instruction == "insert") {
       int value, blockidx;
@@ -96,7 +94,6 @@ int main() {
         int num = idx[blockidx].datanumber / 2;
         idx[len].datanumber = idx[blockidx].datanumber - num;
         idx[len].link = idx[blockidx].link;
-        idx[len].nextplace = idx[blockidx].nextplace;
         strcpy(idx[len].name, idx[blockidx].name);
         idx[len].number = idx[blockidx].number;
         Block otherblock;
@@ -107,7 +104,6 @@ int main() {
 
         idx[blockidx].datanumber = num;
         idx[blockidx].link = len;
-        idx[blockidx].nextplace = sizeof(int) * info_len + blockidx * sizeof(Block);
         strcpy(idx[blockidx].name, takeblock.data[num - 1].index);
         idx[blockidx].number = takeblock.data[num - 1].value;
         ++len;
