@@ -25,7 +25,7 @@ struct Index {
 
 std::string instruction;
 char readindex[64];
-Index idx[3 * BLOCK_SIZE + 1];
+Index idx[10 * BLOCK_SIZE + 1];
 int head, len, startplace;
 Block takeblock;
 MemoryRiver<Index> lst(INDEX_FILE);
