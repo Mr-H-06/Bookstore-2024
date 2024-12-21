@@ -2,7 +2,7 @@
 #include <iostream>
 #include <memoryriver.hpp>
 
-const int BLOCK_SIZE = 2000;
+const int BLOCK_SIZE = 600;
 const std::string BLOCK_FILE_PREFIX = "block.txt";
 const std::string INDEX_FILE = "index.txt";
 
