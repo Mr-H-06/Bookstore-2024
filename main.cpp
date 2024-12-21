@@ -2,7 +2,7 @@
 #include <iostream>
 #include <memoryriver.hpp>
 
-const int BLOCK_SIZE = 3000;
+const int BLOCK_SIZE = 2000;
 const std::string BLOCK_FILE_PREFIX = "block.txt";
 const std::string INDEX_FILE = "index.txt";
 
@@ -32,7 +32,7 @@ MemoryRiver<Index> lst(INDEX_FILE);
 MemoryRiver<Block> block(BLOCK_FILE_PREFIX);
 
 int findblock(char *index, int value) {
-  int i = head;
+  int i = 0;
   while (strcmp(idx[i].name, index) < 0 || strcmp(idx[i].name, index) == 0 && idx[i].number < value) {
     if (idx[i].link == 0) break;
     i = idx[i].link;
@@ -55,7 +55,6 @@ int main() {
   lst.close();
   block.close();
   return 0;*/
-  head = 0;
   //lst.write_info(100,1);
   lst.get_info(len, 1); //len 是 块数
   if (len != 0) {
@@ -82,7 +81,7 @@ int main() {
       blockidx = findblock(readindex, value);
       getblock(blockidx);
       int j = idx[blockidx].datanumber - 1;
-      while (!(strcmp(takeblock.data[j].index, readindex) < 0 || strcmp(takeblock.data[j].index, readindex) == 0 && takeblock.data[j].value < value) && j >= 0) {
+      while (j >= 0 && !(strcmp(takeblock.data[j].index, readindex) < 0 || strcmp(takeblock.data[j].index, readindex) == 0 && takeblock.data[j].value < value)) {
         takeblock.data[j + 1] = takeblock.data[j];
         --j;
       }
@@ -107,7 +106,6 @@ int main() {
         strcpy(idx[blockidx].name, takeblock.data[num - 1].index);
         idx[blockidx].number = takeblock.data[num - 1].value;
         ++len;
-
       }  //更新
       block.write(takeblock, blockidx);
       //std::cout << instruction << readindex << value;
@@ -144,31 +142,31 @@ int main() {
       int value = -1, blockidx;
       blockidx = findblock(readindex, value);
       getblock(blockidx);
-      bool print = false;/////////this
+      bool print = false;
       for (int p = 0; p < idx[blockidx].datanumber; ++p) {
         if (strcmp(takeblock.data[p].index,readindex) == 0) {
           std::cout << takeblock.data[p].value << ' ';
           print = true;
         }
       }
-      if (!print) {
-        std::cout << "null";
-      } else {
-        blockidx = idx[blockidx].link;
-        getblock(blockidx);
-        while (blockidx != 0 && strcmp(takeblock.data[0].index, readindex) == 0) {
-          for (int p = 0; p < idx[blockidx].datanumber; ++p) {
-            if(strcmp(takeblock.data[p].index,readindex) == 0) {
-              std::cout << takeblock.data[p].value << ' ';
-            }
-          }
-          blockidx = idx[blockidx].link;
-          if (blockidx == 0) {
-            break;
-          } else {
-            getblock(blockidx);
+      blockidx = idx[blockidx].link;
+      getblock(blockidx);
+      while (blockidx != 0 && strcmp(takeblock.data[0].index, readindex) == 0) {
+        for (int p = 0; p < idx[blockidx].datanumber; ++p) {
+          if(strcmp(takeblock.data[p].index,readindex) == 0) {
+            std::cout << takeblock.data[p].value << ' ';
+            print = true;
           }
         }
+        blockidx = idx[blockidx].link;
+        if (blockidx == 0) {
+          break;
+        } else {
+          getblock(blockidx);
+        }
+      }
+      if (!print) {
+        std::cout << "null";
       }
       std::cout << std::endl;
     }
