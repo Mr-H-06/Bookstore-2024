@@ -69,28 +69,28 @@ include CMakeFiles/code.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/code.dir/flags.make
 
-CMakeFiles/code.dir/code.cpp.o: CMakeFiles/code.dir/flags.make
-CMakeFiles/code.dir/code.cpp.o: /mnt/c/Users/hejia/Desktop/Bookstore-2024/code.cpp
-CMakeFiles/code.dir/code.cpp.o: CMakeFiles/code.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/mnt/c/Users/hejia/Desktop/Bookstore-2024/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/code.dir/code.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/code.dir/code.cpp.o -MF CMakeFiles/code.dir/code.cpp.o.d -o CMakeFiles/code.dir/code.cpp.o -c /mnt/c/Users/hejia/Desktop/Bookstore-2024/code.cpp
+CMakeFiles/code.dir/main.cpp.o: CMakeFiles/code.dir/flags.make
+CMakeFiles/code.dir/main.cpp.o: /mnt/c/Users/hejia/Desktop/Bookstore-2024/main.cpp
+CMakeFiles/code.dir/main.cpp.o: CMakeFiles/code.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/mnt/c/Users/hejia/Desktop/Bookstore-2024/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/code.dir/main.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/code.dir/main.cpp.o -MF CMakeFiles/code.dir/main.cpp.o.d -o CMakeFiles/code.dir/main.cpp.o -c /mnt/c/Users/hejia/Desktop/Bookstore-2024/main.cpp
 
-CMakeFiles/code.dir/code.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/code.dir/code.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/c/Users/hejia/Desktop/Bookstore-2024/code.cpp > CMakeFiles/code.dir/code.cpp.i
+CMakeFiles/code.dir/main.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/code.dir/main.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/c/Users/hejia/Desktop/Bookstore-2024/main.cpp > CMakeFiles/code.dir/main.cpp.i
 
-CMakeFiles/code.dir/code.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/code.dir/code.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/Users/hejia/Desktop/Bookstore-2024/code.cpp -o CMakeFiles/code.dir/code.cpp.s
+CMakeFiles/code.dir/main.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/code.dir/main.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/Users/hejia/Desktop/Bookstore-2024/main.cpp -o CMakeFiles/code.dir/main.cpp.s
 
 # Object files for target code
 code_OBJECTS = \
-"CMakeFiles/code.dir/code.cpp.o"
+"CMakeFiles/code.dir/main.cpp.o"
 
 # External object files for target code
 code_EXTERNAL_OBJECTS =
 
-code: CMakeFiles/code.dir/code.cpp.o
+code: CMakeFiles/code.dir/main.cpp.o
 code: CMakeFiles/code.dir/build.make
 code: CMakeFiles/code.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/mnt/c/Users/hejia/Desktop/Bookstore-2024/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable code"

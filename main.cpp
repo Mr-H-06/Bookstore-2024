@@ -2,7 +2,7 @@
 #include <iostream>
 #include <memoryriver.hpp>
 
-const int BLOCK_SIZE = 3000;
+const int BLOCK_SIZE = 1000;
 const std::string BLOCK_FILE_PREFIX = "block.txt";
 const std::string INDEX_FILE = "index.txt";
 
@@ -25,7 +25,7 @@ struct Index {
 
 std::string instruction;
 char readindex[64];
-Index idx[BLOCK_SIZE + 1];
+Index idx[3 * BLOCK_SIZE + 1];
 int head, len, startplace;
 Block takeblock;
 MemoryRiver<Index> lst(INDEX_FILE);
