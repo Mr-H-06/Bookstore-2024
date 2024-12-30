@@ -6,5 +6,5 @@ CXX_DEFINES =
 
 CXX_INCLUDES = -I/mnt/c/Users/hejia/Desktop/Bookstore-2024/.
 
-CXX_FLAGS = -g -std=gnu++14 -fdiagnostics-color=always
+CXX_FLAGS = -g -fdiagnostics-color=always
 

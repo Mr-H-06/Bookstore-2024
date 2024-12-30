@@ -129,6 +129,30 @@ code/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/code.dir/build.make CMakeFiles/code.dir/build
 .PHONY : code/fast
 
+block.o: block.cpp.o
+.PHONY : block.o
+
+# target to build an object file
+block.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/code.dir/build.make CMakeFiles/code.dir/block.cpp.o
+.PHONY : block.cpp.o
+
+block.i: block.cpp.i
+.PHONY : block.i
+
+# target to preprocess a source file
+block.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/code.dir/build.make CMakeFiles/code.dir/block.cpp.i
+.PHONY : block.cpp.i
+
+block.s: block.cpp.s
+.PHONY : block.s
+
+# target to generate assembly for a file
+block.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/code.dir/build.make CMakeFiles/code.dir/block.cpp.s
+.PHONY : block.cpp.s
+
 main.o: main.cpp.o
 .PHONY : main.o
 
@@ -162,6 +186,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... code"
+	@echo "... block.o"
+	@echo "... block.i"
+	@echo "... block.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

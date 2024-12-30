@@ -8,6 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/mnt/c/Users/hejia/Desktop/Bookstore-2024/block.cpp" "CMakeFiles/code.dir/block.cpp.o" "gcc" "CMakeFiles/code.dir/block.cpp.o.d"
   "/mnt/c/Users/hejia/Desktop/Bookstore-2024/main.cpp" "CMakeFiles/code.dir/main.cpp.o" "gcc" "CMakeFiles/code.dir/main.cpp.o.d"
   )
 

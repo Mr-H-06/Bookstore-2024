@@ -19,7 +19,9 @@ private:
   int sizeofT = sizeof(T);
 public:
   MemoryRiver() = default;
-  MemoryRiver(const string& file_name) : file_name(file_name) {}
+  MemoryRiver(const string& file_name) : file_name(file_name) {
+    clear();
+  }
   void open() {
     file.open(file_name, std::ios::in | std::ios::out);
     if(!file.is_open()){
@@ -99,7 +101,7 @@ public:
     file.close();
   }
   void clear() {
-    close();
+    //close();
     file.open(file_name,std::ios::out | std::ios::trunc);
     close();
     //file.open(file_name,std::ios::in | std::ios::out);
