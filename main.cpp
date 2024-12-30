@@ -816,7 +816,7 @@ int main() {
   char *line;
   while (true) {
     std::getline(std::cin, command);
-    if (command == "quit" || command == "exit") {
+    if (std::cin.eof() || command == "quit" || command == "exit") {
       finance.write_info(financenumber,1);
       finance.close();
       return 0;
