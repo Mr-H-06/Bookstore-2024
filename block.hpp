@@ -5,22 +5,22 @@
 #include <vector>
 #include <cstring>
 
-constexpr int BLOCK_SIZE = 20;
+constexpr int BLOCK_SIZE = 200;
 const std::string BLOCK_FILE_PREFIX = "block.txt";
 const std::string INDEX_FILE = "index.txt";
 
 struct Account {
   // UserID作为index内容，内存开在块链的库里  30可用
-  char password[30];
+  char password[31];
   int privilege;
-  char username[30];
+  char username[31];
 };
 
 struct Book {
   // ISBN作为index内容，内存开在块链的库里
-  char bookname[60];
-  char author[60];
-  char keyword[60];
+  char bookname[61];
+  char author[61];
+  char keyword[61];
   double price;   //单价
   int quantity;   //库存量
 };

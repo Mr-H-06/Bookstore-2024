@@ -120,12 +120,13 @@ void deletekey(char *k) {
     key = strtok(nullptr, "|");
   }
 }
+
 void insertkey(char *k) {
   char *key;
   key = strtok(k, "|");
   Keyword a;
   while (key != nullptr) {
-    keyword.insert(k, selectbook[signedins], a);
+    keyword.insert(key, selectbook[signedins], a);
     key = strtok(nullptr, "|");
   }
 }
@@ -395,21 +396,23 @@ void modifyBookInfo(char *type, char *message) {
     author.insert(message, selectbook[signedins], a);
   }
   if (strcmp(type, "-keyword") == 0) {
-    char *k;
+    deletekey(find_books[0].other.keyword);
+    /*char *k;
     strcpy(k, find_books[0].other.keyword);
     char *key = strtok(k, "|");
     while (key != nullptr) {
       keyword.deletevalue(key, selectbook[signedins]);
       key = strtok(nullptr, "|");
-    }
+    }*/
     strcpy(find_books[0].other.keyword, message);
-    strcpy(k, message);
+    insertkey(message);
+    /*strcpy(k, message);
     key = strtok(k, "|");
     Keyword a;
     while (key != nullptr) {
       keyword.insert(key, selectbook[signedins], a);
       key = strtok(nullptr, "|");
-    }
+    }*/
   }
   if (strcmp(type, "-price") == 0) {
     find_books[0].other.price = strtod(message, nullptr);
@@ -625,9 +628,19 @@ void processCommand(char *line) {   //判断指令合法性
         return;
       }
       char *count = strtok(nullptr, " ");
-      if (strcmp(count, "0") == 0) {
+      if (count == nullptr) {
+        showFinance(count);
+      } else if (strcmp(count, "0") == 0) {
+        if (strtok(nullptr, " ") != nullptr) {
+          error();
+          return;
+        }
         std::cout << '\n';
       } else {
+        if (strtok(nullptr, " ") != nullptr) {
+          error();
+          return;
+        }
         showFinance(count);
       }
     } else {
@@ -733,7 +746,7 @@ void processCommand(char *line) {   //判断指令合法性
   }
 
 
-  else if (strcmp(command, "show") == 0) {
+  /*else if (strcmp(command, "show") == 0) {
     //log
     char *count = strtok(nullptr, " ");
     if (strcmp(count, "finance") != 0) {
@@ -746,9 +759,7 @@ void processCommand(char *line) {   //判断指令合法性
     } else {
       showFinance(count);
     }
-  }
-
-
+  }*/
   else if (strcmp(command, "log") == 0) {
     if (strtok(nullptr, " ") != nullptr) {
       error();
