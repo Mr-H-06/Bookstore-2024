@@ -5,7 +5,7 @@
 #include <vector>
 #include <cstring>
 
-constexpr int BLOCK_SIZE = 200;
+constexpr int BLOCK_SIZE = 450;
 const std::string BLOCK_FILE_PREFIX = "block.txt";
 const std::string INDEX_FILE = "index.txt";
 
