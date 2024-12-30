@@ -329,6 +329,16 @@ void buyBook(char *isbn, int quantity) {
   coutnumber(quantity * find_books[0].other.price);
   std::cout << '\n';
   //修改log
+  book.deletevalue(find_books[0].index, "");
+  find_books[0].other.quantity -= quantity;
+  book.insert(find_books[0].index, "", find_books[0].other);
+  Finance o;
+  char *id = numbertoid(financenumber + 1);
+  finance.read(o, info_len *sizeof(int) + (financenumber - 1) * sizeof(Finance));
+  strcpy(o.idx, id);
+  o.in += quantity * find_books[0].other.price;
+  finance.write(o, financenumber);
+  ++financenumber;
 }
 
 void select(char *isbn) {
@@ -627,10 +637,10 @@ void processCommand(char *line) {   //判断指令合法性
         error();
         return;
       }
-      char *count = strtok(nullptr, " ");
-      if (count == nullptr) {
-        showFinance(count);
-      } else if (strcmp(count, "0") == 0) {
+      //char *count = strtok(nullptr, " ");
+      if (message == nullptr) {
+        showFinance(message);
+      } else if (strcmp(message, "0") == 0) {
         if (strtok(nullptr, " ") != nullptr) {
           error();
           return;
@@ -641,7 +651,7 @@ void processCommand(char *line) {   //判断指令合法性
           error();
           return;
         }
-        showFinance(count);
+        showFinance(message);
       }
     } else {
       if (privilege[signedins] < 1) {
