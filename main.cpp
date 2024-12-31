@@ -845,6 +845,7 @@ void processCommand(char *line) {   //判断指令合法性
 
 int main() {
   finance.open();
+  finance.get_info(financenumber, 1);
   privilege[0] = 0;
   strcpy(s, "root");
   find_accounts = account.find(s);
