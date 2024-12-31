@@ -212,7 +212,7 @@ void changePassword(char *userid, char *currentpassword, char *newpassword) {
   find_accounts = account.find(userid);
   if (find_accounts.empty()
     || (privilege[signedins] != 7 && strcmp(find_accounts[0].other.password, currentpassword) != 0)
-    || strcmp(currentpassword, newpassword) == 0
+    //|| strcmp(currentpassword, newpassword) == 0
     || !legal_basicdata(newpassword)) {
     error();
     return;
