@@ -20,7 +20,7 @@ private:
 public:
   MemoryRiver() = default;
   MemoryRiver(const string& file_name) : file_name(file_name) {
-    clear();
+    //clear();
   }
   void open() {
     file.open(file_name, std::ios::in | std::ios::out);
