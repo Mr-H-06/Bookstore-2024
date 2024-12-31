@@ -131,6 +131,23 @@ void insertkey(char *k) {
   }
 }
 
+bool judgekeyword(char *keyword) {
+  char k[61][61], *key;
+  int ins = 0;
+  key = strtok(keyword, "|");
+  while (key != nullptr) {
+    for (int o = 0; o < ins; ++o) {
+      if (strcmp(k[o], key) == 0) {
+        return false;
+      }
+    }
+    strcpy(k[ins], key);
+    ++ins;
+    key = strtok(nullptr, "|");
+  }
+  return true;
+}
+
 char *numbertoid(int n) {
   std::string result;
   while (n > 0) {
@@ -149,11 +166,16 @@ void login(char *userid, char *password) {
     error();
     return;
   }
-  if (privilege[signedins] > find_accounts[0].other.privilege && strcmp(password, "") == 0) {
-    ++signedins;
-    privilege[signedins] = find_accounts[0].other.privilege;
-    strcpy(user[signedins], userid);
-    strcpy(selectbook[signedins], "");
+  if (password == nullptr){
+    if (privilege[signedins] > find_accounts[0].other.privilege) {
+      ++signedins;
+      privilege[signedins] = find_accounts[0].other.privilege;
+      strcpy(user[signedins], userid);
+      strcpy(selectbook[signedins], "");
+    } else {
+      error();
+      return;
+    }
   } else if (strcmp(find_accounts[0].other.password, password) == 0) {
     ++signedins;
     privilege[signedins] = find_accounts[0].other.privilege;
@@ -220,9 +242,15 @@ void addUser(char *userid, char *password, int newprivilege, char *username) {
 
 void deleteUser(char *userid) {
   find_accounts = account.find(userid);
-  if (strcmp(userid, user[signedins]) == 0 || find_accounts.empty()) {
+  if (find_accounts.empty()) {
     error();
     return;
+  }
+  for (int i = 1; i <= signedins; ++i) {
+    if (strcmp(userid, user[i]) == 0) {
+      error();
+      return;
+    }
   }
   account.deletevalue(userid, "");
 }
@@ -374,7 +402,11 @@ void modifyBookInfo(char *type, char *message) {
       keyword.deletevalue(key, selectbook[signedins]);
       key = strtok(nullptr, "|");
     }*/
-    strcpy(selectbook[signedins], message);
+    for (int t = 1; t <= signedins; ++t) {
+      if (strcmp(selectbook[t], selectbook[signedins]) == 0) {
+        strcpy(selectbook[t], message);
+      }
+    }
     insertkey(find_books[0].other.keyword);/*
     char *k, *key;
     strcpy(k, find_books[0].other.keyword);
@@ -525,7 +557,7 @@ void processCommand(char *line) {   //判断指令合法性
     char *userid, *password;
     userid = strtok(nullptr, " ");
     password = strtok(nullptr, " ");
-    if (userid == nullptr || password == nullptr) {
+    if (userid == nullptr) {
       error();
       return;
     }
@@ -533,11 +565,7 @@ void processCommand(char *line) {   //判断指令合法性
       error();
       return;
     }
-    if (!legal_basicdata(userid) || !legal_basicdata(password)) {
-      error();
-      return;
-    }
-    if (strcmp(password, "") == 0) {
+    if (!legal_basicdata(userid) || (password != nullptr && !legal_basicdata(password))) {
       error();
       return;
     }
@@ -717,6 +745,12 @@ void processCommand(char *line) {   //判断指令合法性
             message[i][k - 1] =  message[i][k];
           }
           message[i][strlen(message[i]) - 2] = '\0';
+        }
+        if (strcmp(type[i], "-keyword") == 0) {
+          if (!judgekeyword(message[i])) {
+            error();
+            return;
+          }
         }
         if (!legal_bookdata(message[i])) {
           error();
