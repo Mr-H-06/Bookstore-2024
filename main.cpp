@@ -131,8 +131,9 @@ void insertkey(char *k) {
   }
 }
 
-bool judgekeyword(char *keyword) {
-  char k[61][61], *key;
+bool judgekeyword(char *in) {
+  char k[61][61], *key, keyword[121];
+  strcpy(keyword, in);
   int ins = 0;
   key = strtok(keyword, "|");
   while (key != nullptr) {
@@ -746,12 +747,6 @@ void processCommand(char *line) {   //判断指令合法性
           }
           message[i][strlen(message[i]) - 2] = '\0';
         }
-        if (strcmp(type[i], "-keyword") == 0) {
-          if (!judgekeyword(message[i])) {
-            error();
-            return;
-          }
-        }
         if (!legal_bookdata(message[i])) {
           error();
           return;
@@ -768,6 +763,20 @@ void processCommand(char *line) {   //判断指令合法性
       ++i;
       type[i] = strtok(nullptr, "=");
       message[i] = strtok(nullptr, " ");
+    }
+    for (int o = 0; o < i; ++o) {
+      for (int p = 0; p < o; ++p) {
+        if (strcmp(type[o], type[p]) == 0) {
+          error();
+          return;
+        }
+      }
+      if (strcmp(type[o], "-keyword") == 0) {
+        if (!judgekeyword(message[o])) {
+          error();
+          return;
+        }
+      }
     }
     while (i > 0) {
       --i;
