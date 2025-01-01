@@ -264,6 +264,10 @@ void showBooks(char *type, char *message) {
     return;
   }
   if (strcmp(type, "-ISBN") == 0) {
+    if (!legal_ISBN(message)) {
+      error();
+      return;
+    }
     find_books = book.find(message);
     if (find_books.empty()) {
       std::cout << '\n';
@@ -286,6 +290,10 @@ void showBooks(char *type, char *message) {
       message[i - 1] = message[i];
     }
     message[strlen(message) - 2] = '\0';
+    if (!legal_bookdata(message)) {
+      error();
+      return;
+    }
     if (strcmp(type, "-name") == 0) {
       find_booknames = bookname.find(message);
       if (find_booknames.empty()) {
@@ -681,7 +689,7 @@ void processCommand(char *line) {   //判断指令合法性
         showFinance(message);
       }
     } else {
-      if (privilege[signedins] < 1) {
+      if (privilege[signedins] < 1 || strtok(nullptr, " ") != nullptr) {
         error();
         return;
       }
