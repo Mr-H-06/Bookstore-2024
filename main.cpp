@@ -63,8 +63,11 @@ bool legal_name(char *str) { //合法名字
   return true;
 }
 
-bool legal_number(char *str) {  //整数判断
+bool legal_number(char *str) {  //合法正整数判断
   if (str == nullptr || *str == '0') {
+    return false;
+  }
+  if (strlen(str) > 10 || strlen(str) == 10 && strcmp(str, "2147483647") > 0) {
     return false;
   }
   while (*str) {
@@ -72,9 +75,6 @@ bool legal_number(char *str) {  //整数判断
       return false;
     }
     ++str;
-  }
-  if (strlen(str) > 10 || strlen(str) == 10 && strcmp(str, "2147483647") > 0) {
-    return false;
   }
   return true;
 }
@@ -571,18 +571,18 @@ void processCommand(char *line) {   //判断指令合法性
       return;
     }
     login(userid, password);
-
-
   }
+
+
   else if (strcmp(command, "logout") == 0) {
     if (strtok(nullptr, " ") != nullptr) {
       error();
       return;
     }
     logout();
-
-
   }
+
+
   else if (strcmp(command, "register") == 0) {
     char *userid, *password, *username;
     userid = strtok(nullptr, " ");
@@ -598,9 +598,9 @@ void processCommand(char *line) {   //判断指令合法性
       return;
     }
     registerAccount(userid, password, username);
-
-
   }
+
+
   else if (strcmp(command, "passwd") == 0) {
     char *userid, *currentpassword, *newpassword;
     userid = strtok(nullptr, " ");
@@ -628,9 +628,9 @@ void processCommand(char *line) {   //判断指令合法性
       return;
     }
     changePassword(userid, currentpassword, newpassword);
-
-
   }
+
+
   else if (strcmp(command, "useradd") == 0) {
     //addUser();
     char *userid, *password, *newprivilege, *username;
@@ -656,9 +656,9 @@ void processCommand(char *line) {   //判断指令合法性
       return;
     }
     deleteUser(userid);
-
-
   }
+
+
   else if (strcmp(command, "show") == 0) {
     char *type = strtok(nullptr, " ="), *message = strtok(nullptr, " ");
     if (type != nullptr && strcmp(type, "finance") == 0) {
