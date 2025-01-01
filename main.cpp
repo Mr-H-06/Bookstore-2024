@@ -211,9 +211,7 @@ void registerAccount(char *userid, char *password, char *username) {
 void changePassword(char *userid, char *currentpassword, char *newpassword) {
   find_accounts = account.find(userid);
   if (find_accounts.empty()
-    || (privilege[signedins] != 7 && strcmp(find_accounts[0].other.password, currentpassword) != 0)
-    //|| strcmp(currentpassword, newpassword) == 0
-    || !legal_basicdata(newpassword)) {
+    || (privilege[signedins] < 7 && strcmp(find_accounts[0].other.password, currentpassword) != 0)) {
     error();
     return;
   }
@@ -225,12 +223,12 @@ void changePassword(char *userid, char *currentpassword, char *newpassword) {
 
 void addUser(char *userid, char *password, int newprivilege, char *username) {
   find_accounts = account.find(userid);
-  if (!find_accounts.empty()
-    || newprivilege >= privilege[signedins]) {
+  if (newprivilege != 7 && newprivilege != 3 && newprivilege != 1) {
     error();
     return;
   }
-  if (newprivilege != 7 && newprivilege != 3 && newprivilege != 1 && newprivilege != 1) {
+  if (!find_accounts.empty()
+    || newprivilege >= privilege[signedins]) {
     error();
     return;
   }
@@ -651,7 +649,7 @@ void processCommand(char *line) {   //判断指令合法性
 
   else if (strcmp(command, "delete") == 0) {
     char *userid = strtok(nullptr, " ");
-    if (userid == nullptr) {
+    if (userid == nullptr || strtok(nullptr, " ") != nullptr) {
       error();
       return;
     }
