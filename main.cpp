@@ -9,12 +9,20 @@ char user[10000][30];
 int privilege[10000];
 int signedins = 0;
 int financenumber = 0;
+int lognumber = 0;
 
 
 struct Finance {
   char idx[6];
   double in;
   double out;
+};
+
+struct Log {
+  char user[64];
+  char dotype[20];
+  char book[20];
+  char dowhat[40];
 };
 
 //template class BlockManager<Book>;
@@ -29,7 +37,8 @@ BlockManager<Account> account("account_" + INDEX_FILE, "account_" + BLOCK_FILE_P
 BlockManager<Bookname> bookname("bookname_" + INDEX_FILE, "bookname_" + BLOCK_FILE_PREFIX);
 BlockManager<Author> author("author_" + INDEX_FILE, "author_" + BLOCK_FILE_PREFIX);
 BlockManager<Keyword> keyword("keyword_" + INDEX_FILE, "keyword_" + BLOCK_FILE_PREFIX);
-BlockManager<Log> log("log_" +INDEX_FILE, "log_" + BLOCK_FILE_PREFIX); //日志
+//BlockManager<Log> log("log_" +INDEX_FILE, "log_" + BLOCK_FILE_PREFIX); //日志
+MemoryRiver<Log> log("log.txt");
 MemoryRiver<Finance> finance("finance.txt");
 
 inline void error() {
@@ -374,6 +383,17 @@ void buyBook(char *isbn, int quantity) {
   o.in += quantity * find_books[0].other.price;
   finance.write(o, financenumber);
   ++financenumber;
+  find_accounts = account.find(user[signedins]);
+  find_accounts[0].other.in += quantity * find_books[0].other.price;
+  account.deletevalue(user[signedins], "");
+  account.insert(user[signedins], "", find_accounts[0].other);
+  Log a;
+  strcpy(a.user, user[signedins]);
+  strcpy(a.book, isbn);
+  strcpy(a.dotype, "buy");
+  strcpy(a.dowhat, std::to_string(quantity).c_str());
+  log.write(a, lognumber);
+  ++lognumber;
 }
 
 void select(char *isbn) {
@@ -468,6 +488,15 @@ void modifyBookInfo(char *type, char *message) {
   }
   book.insert(selectbook[signedins], "", find_books[0].other);
   //修改log
+  Log a;
+  strcpy(a.user, user[signedins]);
+  strcpy(a.book, selectbook[signedins]);
+  strcpy(a.dotype, "modify");
+  strcpy(a.dowhat, type);
+  strcat(a.dowhat, "=");
+  strcat(a.dowhat, message);
+  log.write(a, lognumber);
+  ++lognumber;
 }
 
 void importBooks(char *quantity, char *totalcost) {
@@ -488,6 +517,19 @@ void importBooks(char *quantity, char *totalcost) {
   read.out += strtod(totalcost, nullptr);
   finance.write(read, financenumber);
   ++financenumber;
+  find_accounts = account.find(user[signedins]);
+  find_accounts[0].other.out += strtod(totalcost, nullptr);
+  account.deletevalue(user[signedins], "");
+  account.insert(user[signedins], "", find_accounts[0].other);
+  Log a;
+  strcpy(a.user, user[signedins]);
+  strcpy(a.book, selectbook[signedins]);
+  strcpy(a.dotype, "import");
+  strcpy(a.dowhat, quantity);
+  strcat(a.dowhat, " spending ");
+  strcat(a.dowhat, totalcost);
+  log.write(a, lognumber);
+  ++lognumber;
 }
 
 void showFinance(char *count) {
@@ -548,11 +590,20 @@ void reportFinance() {
 }
 
 void reportEmployee() {  //no testcase
-  std::cout << "Not yet complete\n";
+  //std::cout << "Not yet complete\n";
+  account.report(true);
 }
 
 void logAction() {
-  std::cout << "Not yet complete\n";
+  Log a;
+  std::cout << "UserID\tDowhat\tBook\tDetail\n";
+  for (int i = 0; i < lognumber; ++i) {
+    log.read(a, sizeof(int) * info_len + i * sizeof(Log));
+    std::cout << a.user << '\t'
+      << a.dotype << '\t'
+      << a.book << '\t'
+      << a.dowhat << '\n';
+  }
 }
 
 void processCommand(char *line) {   //判断指令合法性
@@ -797,7 +848,7 @@ void processCommand(char *line) {   //判断指令合法性
       return;
     }
     char *quantity = strtok(nullptr, " "), *totalcost = strtok(nullptr, " ");
-    if (strtok(nullptr, " ") != nullptr || !legal_number(quantity)) {
+    if (totalcost == nullptr || strtok(nullptr, " ") != nullptr || !legal_number(quantity)) {
       error();
       return;
     }
@@ -829,13 +880,14 @@ void processCommand(char *line) {   //判断指令合法性
 
 
   else if (strcmp(command, "report") == 0) {
-    if (command == "finance") {
+    command = strtok(nullptr, " ");
+    if (strcmp(command, "finance") == 0) {
       if (strtok(nullptr, " ") != nullptr) {
         error();
         return;
       }
       reportFinance();
-    } else if (command == "employee") {
+    } else if (strcmp(command, "employee") == 0) {
       if (strtok(nullptr, " ") != nullptr) {
         error();
         return;
@@ -852,6 +904,8 @@ void processCommand(char *line) {   //判断指令合法性
 int main() {
   finance.open();
   finance.get_info(financenumber, 1);
+  log.open();
+  log.get_info(lognumber, 1);
   privilege[0] = 0;
   strcpy(s, "root");
   find_accounts = account.find(s);
@@ -869,6 +923,8 @@ int main() {
     if (std::cin.eof() || command == "quit" || command == "exit") {
       finance.write_info(financenumber,1);
       finance.close();
+      log.write_info(lognumber, 1);
+      log.close();
       return 0;
     }
     line = const_cast<char *> (command.c_str());

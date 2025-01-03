@@ -180,10 +180,50 @@ void BlockManager<Book>::printall() {
   }
 }
 
+template<>
+void BlockManager<Account>::report(bool type) { // true-employee false-all
+  int k;
+  if (type == true) {
+    k = 2;
+  } else {
+    k = 0;
+  }
+  std::cout << "UserID\tUserName\tprivilege\tpay\tspand\n";
+  int blockidx = 0;
+  getblock(blockidx);
+  for (int p = 0; p < idx[blockidx].datanumber; ++p) {
+    if (takeblock.data[p].other.privilege > k) {
+      std::cout << takeblock.data[p].index << '\t'
+        << takeblock.data[p].other.username << '\t'
+        << takeblock.data[p].other.privilege << '\t'
+        << std::fixed << std::setprecision(2) << takeblock.data[p].other.in << '\t'
+        << std::fixed << std::setprecision(2) << takeblock.data[p].other.out << '\n';
+    }
+  }
+  blockidx = idx[blockidx].link;
+  getblock(blockidx);
+  while (blockidx != 0) {
+    for (int p = 0; p < idx[blockidx].datanumber; ++p) {
+      if (takeblock.data[p].other.privilege > k) {
+        std::cout << takeblock.data[p].index << '\t'
+          << takeblock.data[p].other.username << '\t'
+          << takeblock.data[p].other.privilege << '\t'
+          << std::fixed << std::setprecision(2) << takeblock.data[p].other.in << '\t'
+          << std::fixed << std::setprecision(2) << takeblock.data[p].other.out << '\n';
+      }
+    }
+    blockidx = idx[blockidx].link;
+    if (blockidx == 0) {
+      break;
+    } else {
+      getblock(blockidx);
+    }
+  }
+}
+
 
 template class BlockManager<Book>;
 template class BlockManager<Account>;
 template class BlockManager<Bookname>;
 template class BlockManager<Author>;
 template class BlockManager<Keyword>;
-template class BlockManager<Log>;

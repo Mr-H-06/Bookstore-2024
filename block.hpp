@@ -14,6 +14,8 @@ struct Account {
   char password[31];
   int privilege;
   char username[31];
+  double in;
+  double out;
 };
 
 struct Book {
@@ -30,8 +32,6 @@ struct Bookname {};
 struct Author{};
 
 struct Keyword {}; // keyword to ISBN
-
-struct Log {};
 
 struct Employee{};
 
@@ -84,6 +84,7 @@ public:
   void deletevalue(char *index, char *value);
   std::vector<Data<T>> find(char *index);
   void printall();
+  void report(bool type);
   void open();
   void close();
 };
